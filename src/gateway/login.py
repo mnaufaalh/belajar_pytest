@@ -11,5 +11,4 @@ def login_marketplace(email, password):
         "password": password
     }
     response = requests.post(f'{baseUrl}/auth/login', json = body)
-    bodyResponse = response.json()
-    return bodyResponse
+    return response
