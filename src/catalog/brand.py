@@ -12,7 +12,7 @@ class Brand:
         self.fake = Faker()
         self.accessToken = accessToken
         self.headers = {
-            "Authorization": f"Bearer {accessToken}"
+            'Authorization': f'Bearer {accessToken}'
         }
 
     def create_brand(self):
@@ -61,4 +61,25 @@ class Brand:
                 files=files, 
                 data=data
             )
+        return response
+
+    def get_brand(self, params=None) :
+        if params == None:
+            params = {
+                'sortBy': 'updated_at,desc',
+                'pageSize': 100
+            }
+        response = requests.get(
+            f'{baseUrl}/catalog-service/v1/brand/get',
+            headers = self.headers,
+            params = params
+        )
+        return response
+
+    def get_brand_detail(self, idBrand) :
+        response = requests.get(f'{baseUrl}/catalog-service/v1/brand/get/{idBrand}', headers = self.headers)
+        return response
+
+    def delete_brand(self, idBrand) : 
+        response = requests.delete(f'{baseUrl}/catalog-service/v1/brand/delete/{idBrand}', headers = self.headers)
         return response

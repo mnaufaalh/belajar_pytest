@@ -7,8 +7,8 @@ baseUrl: str = os.getenv('BASE_URL_MARKETPLACE')
 
 def login_marketplace(email, password):
     body = {
-        "email": email,
-        "password": password
+        'email': email,
+        'password': password
     }
     response = requests.post(f'{baseUrl}/auth/login', json = body)
     return response
