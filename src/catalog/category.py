@@ -17,8 +17,8 @@ class Category:
     
     def create_category(self):
         payloadData = {
-            name: self.fake.name()
-            is_active: self.fake.boolean()
+            'name': self.fake.name(),
+            'is_active': self.fake.boolean()
         }
         response = requests.post(
             f'{baseUrl}/catalog-service/v1/category/create',
@@ -27,4 +27,35 @@ class Category:
             )
         return response
 
+    def update_category(self, idCategory) :
+        payloadData = {
+            'name': self.fake.name(),
+            'is_active': self.fake.boolean()
+        }
+        response = requests.put(
+            f'{baseUrl}/catalog-service/v1/category/update/{idCategory}', headers = self.headers, json = payloadData
+            )
+        return response
     
+    def get_category(self, params=None) : 
+        if params == None :
+            params = {
+                'sortBy': 'updated_at,desc',
+                'pageSize': 100
+            }
+        response = requests.get(
+            f'{baseUrl}/catalog-service/v1/category/get'
+            )
+        return response
+
+    def get_category_detail(self, idCategory) :
+        response = requests.get(
+            f'{baseUrl}/catalog-service/v1/category/get/{idCategory}'
+            )
+        return response
+
+    def delete_category(self, idCategory) :
+        response = requests.delete(
+            f'{baseUrl}/catalog-service/v1/category/delete/{idCategory}'
+            )
+        return response

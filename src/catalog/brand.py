@@ -77,9 +77,14 @@ class Brand:
         return response
 
     def get_brand_detail(self, idBrand) :
-        response = requests.get(f'{baseUrl}/catalog-service/v1/brand/get/{idBrand}', headers = self.headers)
+        response = requests.get(
+            f'{baseUrl}/catalog-service/v1/brand/get/{idBrand}', 
+            headers = self.headers
+            )
         return response
 
     def delete_brand(self, idBrand) : 
-        response = requests.delete(f'{baseUrl}/catalog-service/v1/brand/delete/{idBrand}', headers = self.headers)
+        response = requests.delete(
+            f'{baseUrl}/catalog-service/v1/brand/delete/{idBrand}', headers = self.headers
+            )
         return response
