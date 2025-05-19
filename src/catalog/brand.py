@@ -7,6 +7,7 @@ import os
 load_dotenv('.staging.env')
 baseUrl: str = os.getenv('BASE_URL_CONSOLE')
 
+
 class Brand:
     def __init__(self, accessToken):
         self.fake = Faker()
@@ -32,9 +33,9 @@ class Brand:
                 'payload': json.dumps(payloadData)
             }
             response = requests.post(
-                f'{baseUrl}/catalog-service/v1/brand/create', 
+                f'{baseUrl}/catalog-service/v1/brand/create',
                 headers=self.headers,
-                files=files, 
+                files=files,
                 data=data
             )
         return response
@@ -56,14 +57,14 @@ class Brand:
                 'payload': json.dumps(payloadData)
             }
             response = requests.put(
-                f'{baseUrl}/catalog-service/v1/brand/update/{idBrand}', 
+                f'{baseUrl}/catalog-service/v1/brand/update/{idBrand}',
                 headers=self.headers,
-                files=files, 
+                files=files,
                 data=data
             )
         return response
 
-    def get_brand(self, params=None) :
+    def get_brand(self, params=None):
         if params == None:
             params = {
                 'sortBy': 'updated_at,desc',
@@ -71,15 +72,17 @@ class Brand:
             }
         response = requests.get(
             f'{baseUrl}/catalog-service/v1/brand/get',
-            headers = self.headers,
-            params = params
+            headers=self.headers,
+            params=params
         )
         return response
 
-    def get_brand_detail(self, idBrand) :
-        response = requests.get(f'{baseUrl}/catalog-service/v1/brand/get/{idBrand}', headers = self.headers)
+    def get_brand_detail(self, idBrand):
+        response = requests.get(
+            f'{baseUrl}/catalog-service/v1/brand/get/{idBrand}', headers=self.headers)
         return response
 
-    def delete_brand(self, idBrand) : 
-        response = requests.delete(f'{baseUrl}/catalog-service/v1/brand/delete/{idBrand}', headers = self.headers)
+    def delete_brand(self, idBrand):
+        response = requests.delete(
+            f'{baseUrl}/catalog-service/v1/brand/delete/{idBrand}', headers=self.headers)
         return response

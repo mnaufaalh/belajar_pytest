@@ -1,6 +1,7 @@
 import pytest
 import src.console.login as login
 
+
 def test_valid_account():
     response = login.login_console('superadmin@kickavenue.com', 'loremipsum')
     bodyResponse = response.json()
@@ -11,12 +12,14 @@ def test_valid_account():
     assert 'access_token' in bodyResponse['data']
     assert isinstance(accessToken, str)
 
+
 def test_invalid_password():
-    response = login.login_console('superadmin@kickavenue.com', 'invalid_password')
+    response = login.login_console(
+        'superadmin@kickavenue.com', 'invalid_password')
     bodyResponse = response.json()
     assert response.status_code == 400
     assert type(bodyResponse) == dict
-    
+
 
 def test_email_doesnt_exists():
     response = login.login_console('emailDoesntExist@gmail.com', 'Test1234!')
