@@ -49,7 +49,8 @@ class Category:
             }
         response = requests.get(
             f'{baseUrl}/catalog-service/v1/category/get',
-            headers=self.headers
+            headers=self.headers,
+            params=params
         )
         return response
 
