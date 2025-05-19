@@ -3,10 +3,13 @@ import src.console.login as login
 from src.catalog.brand import Brand
 from faker import Faker
 
+
 @pytest.fixture
 def access_token():
-    response = login.login_console('superadmin@kickavenue.com', 'loremipsum').json()
+    response = login.login_console(
+        'superadmin@kickavenue.com', 'loremipsum').json()
     return response['data']['access_token']
+
 
 def test_create_brand(access_token):
     brand = Brand(access_token)
@@ -15,6 +18,7 @@ def test_create_brand(access_token):
     responseMessageCreateBrand = bodyResponseCreateBrand['Message']
     assert responseCreateBrand.status_code == 201
     assert responseMessageCreateBrand == 'Created'
+
 
 def test_update_brand(access_token):
     brand = Brand(access_token)
@@ -26,6 +30,7 @@ def test_update_brand(access_token):
     assert responseUpdateBrand.status_code == 200
     assert responseMessageUpdateBrand == 'Success'
 
+
 def test_get_brand(access_token):
     fake = Faker()
     brand = Brand(access_token)
@@ -33,19 +38,20 @@ def test_get_brand(access_token):
     bodyResponse = responseGetBrand.json()
     bodyContent = bodyResponse['Data']['content']
     pageSize = bodyResponse['Data']['pageSize']
-    selectedBrand = bodyContent[fake.random_int(max = pageSize - 1)]
-    assert responseGetBrand.status_code == 200 
+    selectedBrand = bodyContent[fake.random_int(max=pageSize - 1)]
+    assert responseGetBrand.status_code == 200
     assert bodyResponse['Message'] == 'Success'
-    assert type (bodyResponse['Data']) == dict
-    assert type (bodyContent) == list
-    assert type (selectedBrand) == dict
-    assert type (selectedBrand['id']) == int
-    assert type (selectedBrand['name']) == str
-    assert type (selectedBrand['background_image']) == str
-    assert type (selectedBrand['logo_image']) == str
-    assert type (selectedBrand['description']) == str
-    assert type (selectedBrand['is_partner']) == bool
-    assert type (selectedBrand['is_active']) == bool
+    assert type(bodyResponse['Data']) == dict
+    assert type(bodyContent) == list
+    assert type(selectedBrand) == dict
+    assert type(selectedBrand['id']) == int
+    assert type(selectedBrand['name']) == str
+    assert type(selectedBrand['background_image']) == str
+    assert type(selectedBrand['logo_image']) == str
+    assert type(selectedBrand['description']) == str
+    assert type(selectedBrand['is_partner']) == bool
+    assert type(selectedBrand['is_active']) == bool
+
 
 def test_get_brand_detail(access_token):
     brand = Brand(access_token)
@@ -71,12 +77,14 @@ def test_get_brand_detail(access_token):
     assert type(bodyResponseDataGetBrandDetail['is_active']) == bool
     assert (bodyResponseDataGetBrandDetail['id']) == idBrand
     assert (bodyResponseDataGetBrandDetail['name']) == nameBrand
-    assert (bodyResponseDataGetBrandDetail['background_image']) == backgroundImageBrand
+    assert (
+        bodyResponseDataGetBrandDetail['background_image']) == backgroundImageBrand
     assert (bodyResponseDataGetBrandDetail['logo_image']) == logoImageBrand
     assert (bodyResponseDataGetBrandDetail['description']) == descriptionBrand
     assert (bodyResponseDataGetBrandDetail['is_partner']) == isPartnerBrand
     assert (bodyResponseDataGetBrandDetail['is_active']) == isActiveBrand
-    
+
+
 def test_delete_brand(access_token):
     brand = Brand(access_token)
     bodyResponseCreateBrand = brand.create_brand().json()
